@@ -16,6 +16,7 @@ import { ApiError, postTravelNote } from '@/lib/api'
 import { formatDateRange } from '@/lib/utils'
 import { useTrip } from '@/hooks/useTrips'
 import { createPoi, usePoisByTrip } from '@/hooks/usePois'
+import { ApiTokensSection } from '@/components/trips/ApiTokensSection'
 import type { CategoryId, Platform } from '@/types/poi'
 import type { TravelNote } from '@/types/travel-note'
 
@@ -248,6 +249,8 @@ export function TripDetailPage() {
           </div>
         )}
       </div>
+
+      <ApiTokensSection tripId={id!} />
 
       <PoiSaveDialog
         open={saveOpen}
