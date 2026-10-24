@@ -4,17 +4,19 @@ Paste a travel reel from Instagram, YouTube, or TikTok and get a clean, structur
 
 ## Stack
 
-React 18 + Vite + TypeScript + Tailwind + Radix UI + Supabase Auth/DB. Mirrors the labsync project layout, deployed to GitHub Pages with HashRouter.
+React 18 + Vite + TypeScript + Tailwind + Radix UI + Firebase Auth/Firestore (project `erickmob-apps`). Deployed to GitHub Pages with HashRouter. The AI backend is [erickmob-api](https://github.com/erickmobltda/erickmob-api) at `https://api.erickmob.com`.
+
+Sign-up is disabled: accounts are created in the Firebase console (Authentication → Users).
 
 ## Local development
 
 ```bash
-cp .env.example .env       # fill in Supabase URL/anon key and backend URL
+cp .env.example .env       # fill in the Firebase web config and backend URL
 npm install
 npm run dev
 ```
 
-The dev server runs at `http://localhost:5173/reeltrip/`. The frontend expects the travel-note backend at `VITE_API_URL` (defaults to `http://localhost:8000`) exposing `POST /travel-note`.
+The dev server runs at `http://localhost:5173/reeltrip/`. The frontend calls `POST /travel-note` on `VITE_API_URL` (defaults to `http://localhost:8010`) with the signed-in user's Firebase ID token.
 
 ## Build & preview
 
@@ -25,17 +27,19 @@ npm run preview  # serves dist/ under /reeltrip/
 
 ## Deploy
 
-`.github/workflows/deploy.yml` builds and publishes `dist/` to the `gh-pages` branch on every push to `main`/`master`. Set these repo secrets:
+`.github/workflows/deploy.yml` builds and publishes `dist/` to the `gh-pages` branch on every push to `main`/`master`. Repo secrets:
 
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+- `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`
 - `VITE_API_URL`
 
 Enable GitHub Pages → source: `gh-pages` branch. App URL: `https://<user>.github.io/reeltrip/`.
 
 ## Domain model
 
-- **Trip** — name (required), description, start/end dates, country.
-- **POI** — travel-note response linked to one trip, with a user-assigned category (eat, sleep, see, do, save-money, transport, shop, other).
+Stored in Firestore under `apps/reeltrip/users/{uid}/`; the security rules live in erickmob-api (`firebase/firestore.rules`).
 
-When you create a trip with a country, ReelTrip checks for POIs you saved with that country in other trips and offers to import them.
+- **Trip** (`trips`) — name (required), description, start/end dates, country.
+- **POI** (`pois`) — travel-note response linked to one trip, with a user-assigned category (eat, sleep, see, do, save-money, transport, shop, other).
+- **API token** (`apps/reeltrip/api_tokens/{sha256}`) — lets external tools (e.g. an iOS Shortcut) send reels to one trip via `POST https://api.erickmob.com/reeltrip/process-url`. Only the hash is stored.
+
+When you create a trip with a country, ReelTrip checks for POIs you saved with that country in other trips and offers to import them. Deleting a trip also deletes its POIs and API tokens.

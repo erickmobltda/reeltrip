@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useApiTokens } from '@/hooks/useApiTokens'
+import { API_BASE } from '@/lib/api'
 
 interface ApiTokensSectionProps {
   tripId: string
@@ -160,6 +161,10 @@ export function ApiTokensSection({ tripId }: ApiTokensSectionProps) {
                   {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
                 </Button>
               </div>
+              <p className="text-xs text-gray-500">Send a reel to this trip:</p>
+              <pre className="rounded-md bg-gray-50 border border-gray-200 px-3 py-2 text-xs font-mono text-gray-700 whitespace-pre-wrap break-all">
+                {`POST ${API_BASE}/reeltrip/process-url\nAuthorization: Bearer <token>\n{"url": "https://www.instagram.com/reel/..."}`}
+              </pre>
             </div>
           ) : (
             <div className="space-y-3">

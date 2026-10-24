@@ -1,6 +1,26 @@
 import { useCallback, useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { addDoc, getDoc, getDocs, query, updateDoc, where, writeBatch } from 'firebase/firestore'
+import { apiTokensCollection, currentUid, db, userCollection, userDoc } from '@/lib/firebase'
 import type { Trip, TripInput } from '@/types/trip'
+
+const newestFirst = (a: { created_at: string }, b: { created_at: string }) =>
+  b.created_at.localeCompare(a.created_at)
+
+function toRow(input: TripInput) {
+  return {
+    name: input.name,
+    description: input.description ?? null,
+    start_date: input.start_date ?? null,
+    end_date: input.end_date ?? null,
+    country: input.country?.trim() ? input.country.trim() : null,
+  }
+}
+
+async function getTrip(id: string): Promise<Trip> {
+  const snap = await getDoc(userDoc('trips', id))
+  if (!snap.exists()) throw new Error('Trip not found')
+  return { id: snap.id, ...snap.data() } as Trip
+}
 
 export function useTrips() {
   const [trips, setTrips] = useState<Trip[]>([])
@@ -10,12 +30,12 @@ export function useTrips() {
   const refresh = useCallback(async () => {
     setLoading(true)
     setError(null)
-    const { data, error } = await supabase
-      .from('trips')
-      .select('*')
-      .order('created_at', { ascending: false })
-    if (error) setError(error.message)
-    else setTrips((data ?? []) as Trip[])
+    try {
+      const snap = await getDocs(userCollection('trips'))
+      setTrips(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Trip).sort(newestFirst))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load trips')
+    }
     setLoading(false)
   }, [])
 
@@ -35,9 +55,11 @@ export function useTrip(id: string | undefined) {
     if (!id) return
     setLoading(true)
     setError(null)
-    const { data, error } = await supabase.from('trips').select('*').eq('id', id).single()
-    if (error) setError(error.message)
-    else setTrip(data as Trip)
+    try {
+      setTrip(await getTrip(id))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load trip')
+    }
     setLoading(false)
   }, [id])
 
@@ -49,35 +71,25 @@ export function useTrip(id: string | undefined) {
 }
 
 export async function createTrip(input: TripInput): Promise<Trip> {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) throw new Error('Not signed in')
-  const row = {
-    user_id: user.id,
-    name: input.name,
-    description: input.description ?? null,
-    start_date: input.start_date ?? null,
-    end_date: input.end_date ?? null,
-    country: input.country?.trim() ? input.country.trim() : null,
-  }
-  const { data, error } = await supabase.from('trips').insert(row).select('*').single()
-  if (error) throw error
-  return data as Trip
+  const row = { ...toRow(input), user_id: currentUid(), created_at: new Date().toISOString() }
+  const ref = await addDoc(userCollection('trips'), row)
+  return { id: ref.id, ...row }
 }
 
 export async function updateTrip(id: string, input: TripInput): Promise<Trip> {
-  const row = {
-    name: input.name,
-    description: input.description ?? null,
-    start_date: input.start_date ?? null,
-    end_date: input.end_date ?? null,
-    country: input.country?.trim() ? input.country.trim() : null,
-  }
-  const { data, error } = await supabase.from('trips').update(row).eq('id', id).select('*').single()
-  if (error) throw error
-  return data as Trip
+  await updateDoc(userDoc('trips', id), toRow(input))
+  return getTrip(id)
 }
 
+// Firestore has no cascading deletes: remove the trip's POIs and API tokens with it.
 export async function deleteTrip(id: string): Promise<void> {
-  const { error } = await supabase.from('trips').delete().eq('id', id)
-  if (error) throw error
+  const [pois, tokens] = await Promise.all([
+    getDocs(query(userCollection('pois'), where('trip_id', '==', id))),
+    getDocs(query(apiTokensCollection(), where('uid', '==', currentUid()), where('trip_id', '==', id))),
+  ])
+  const batch = writeBatch(db)
+  pois.docs.forEach((d) => batch.delete(d.ref))
+  tokens.docs.forEach((d) => batch.delete(d.ref))
+  batch.delete(userDoc('trips', id))
+  await batch.commit()
 }

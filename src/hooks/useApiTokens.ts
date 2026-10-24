@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { deleteDoc, doc, getDocs, query, setDoc, where } from 'firebase/firestore'
+import { apiTokensCollection, currentUid } from '@/lib/firebase'
 
 export interface ApiToken {
   id: string
@@ -26,6 +27,8 @@ async function hashToken(raw: string): Promise<string> {
   return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 
+// Each token is stored under its SHA-256 hash, so erickmob-api can look it up
+// directly; the raw token is shown once and never stored.
 export function useApiTokens(tripId: string | undefined) {
   const [tokens, setTokens] = useState<ApiToken[]>([])
   const [loading, setLoading] = useState(true)
@@ -33,12 +36,14 @@ export function useApiTokens(tripId: string | undefined) {
   const refresh = useCallback(async () => {
     if (!tripId) return
     setLoading(true)
-    const { data } = await supabase
-      .from('api_tokens')
-      .select('id, trip_id, name, created_at, last_used_at')
-      .eq('trip_id', tripId)
-      .order('created_at', { ascending: false })
-    setTokens((data ?? []) as ApiToken[])
+    const snap = await getDocs(
+      query(apiTokensCollection(), where('uid', '==', currentUid()), where('trip_id', '==', tripId)),
+    )
+    setTokens(
+      snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }) as ApiToken)
+        .sort((a, b) => b.created_at.localeCompare(a.created_at)),
+    )
     setLoading(false)
   }, [tripId])
 
@@ -48,24 +53,21 @@ export function useApiTokens(tripId: string | undefined) {
 
   async function createToken(name: string): Promise<string> {
     if (!tripId) throw new Error('No trip')
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) throw new Error('Not signed in')
     const raw = await generateRawToken()
     const hash = await hashToken(raw)
-    const { error } = await supabase.from('api_tokens').insert({
-      user_id: user.id,
+    await setDoc(doc(apiTokensCollection(), hash), {
+      uid: currentUid(),
       trip_id: tripId,
-      token_hash: hash,
       name: name.trim() || null,
+      created_at: new Date().toISOString(),
+      last_used_at: null,
     })
-    if (error) throw error
     await refresh()
     return raw
   }
 
   async function revokeToken(tokenId: string): Promise<void> {
-    const { error } = await supabase.from('api_tokens').delete().eq('id', tokenId)
-    if (error) throw error
+    await deleteDoc(doc(apiTokensCollection(), tokenId))
     setTokens((prev) => prev.filter((t) => t.id !== tokenId))
   }
 

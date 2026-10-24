@@ -16,7 +16,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'supabase-vendor': ['@supabase/supabase-js'],
+          'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
         },
       },
     },

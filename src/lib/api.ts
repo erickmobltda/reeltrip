@@ -1,6 +1,7 @@
 import type { TravelNote } from '@/types/travel-note'
+import { auth } from '@/lib/firebase'
 
-const BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:8000'
+export const API_BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:8010'
 
 export class ApiError extends Error {
   status: number
@@ -12,9 +13,11 @@ export class ApiError extends Error {
 }
 
 export async function postTravelNote(url: string, signal?: AbortSignal): Promise<TravelNote> {
-  const res = await fetch(`${BASE}/travel-note`, {
+  const token = await auth.currentUser?.getIdToken()
+  if (!token) throw new ApiError(401, 'Not signed in')
+  const res = await fetch(`${API_BASE}/travel-note`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
     body: JSON.stringify({ url }),
     signal,
   })
