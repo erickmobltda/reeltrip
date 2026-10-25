@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-25 — Domain moved to erickmob.dev
+
+**Why:** `erickmob.dev` was bought back and is the main domain again. GitHub Pages serves one custom domain per repo, so `.dev` is the canonical one and `.com` redirects to it.
+
+| | Before | After |
+|---|---|---|
+| URL | `https://reeltrip.erickmob.com` | **`https://reeltrip.erickmob.dev`** (`.com` and `erickmobltda.github.io/reeltrip/` redirect here) |
+| API | `https://api.erickmob.com` | `https://api.erickmob.dev` (`.com` keeps answering) |
+
+- Changed: the `cname` of the deploy step, the `VITE_API_URL` repo secret, `.env.example`, README.
+- The login session is stored per domain: sign in again once on `.dev`.
+
 ## 2026-10-24 — Supabase → Firebase + erickmob-api, new domain
 
 **Why:** the Supabase project behind ReelTrip (`dcpzormfxpnmimhqldmq`) had been deleted, and the AI backend at `transcriptor.erickmob.dev` stopped resolving when `erickmob.dev` was lost. The app could neither sign in nor process reels.
