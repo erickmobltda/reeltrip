@@ -16,13 +16,13 @@ npm install
 npm run dev
 ```
 
-The dev server runs at `http://localhost:5173/reeltrip/`. The frontend calls `POST /travel-note` on `VITE_API_URL` (defaults to `http://localhost:8010`) with the signed-in user's Firebase ID token.
+The dev server runs at `http://localhost:5173/`. The frontend calls `POST /travel-note` on `VITE_API_URL` (defaults to `http://localhost:8010`) with the signed-in user's Firebase ID token.
 
 ## Build & preview
 
 ```bash
 npm run build    # tsc + vite build
-npm run preview  # serves dist/ under /reeltrip/
+npm run preview  # serves dist/
 ```
 
 ## Deploy
@@ -32,7 +32,7 @@ npm run preview  # serves dist/ under /reeltrip/
 - `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`
 - `VITE_API_URL`
 
-Enable GitHub Pages → source: `gh-pages` branch. App URL: `https://<user>.github.io/reeltrip/`.
+Enable GitHub Pages → source: `gh-pages` branch. App URL: **https://reeltrip.erickmob.com** (custom domain, set by the `cname` option of the deploy step; DNS is a CNAME to `erickmobltda.github.io` in Cloudflare, not proxied). The old `erickmobltda.github.io/reeltrip/` URL redirects there.
 
 ## Domain model
 
