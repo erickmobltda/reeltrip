@@ -13,6 +13,7 @@ import { CategoryFilterBar } from '@/components/pois/CategoryFilterBar'
 import { POI_CATEGORIES } from '@/lib/categories'
 import { detectPlatform } from '@/lib/platform'
 import { ApiError, postTravelNote } from '@/lib/api'
+import { isDemo } from '@/lib/firebase'
 import { formatDateRange } from '@/lib/utils'
 import { useTrip } from '@/hooks/useTrips'
 import { createPoi, usePoisByTrip } from '@/hooks/usePois'
@@ -94,7 +95,9 @@ export function TripDetailPage() {
       if (ac.signal.aborted) return
       setProcessingStartedAt(null)
       setSubmittedUrl(null)
-      if (err instanceof ApiError) {
+      if (err instanceof ApiError && err.status === 403 && isDemo()) {
+        toast('Processing reels is not available in the demo account.', 'info')
+      } else if (err instanceof ApiError) {
         toast(`API error (${err.status}): ${err.message || 'request failed'}`, 'error')
       } else {
         toast(

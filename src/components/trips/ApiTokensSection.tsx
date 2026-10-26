@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog'
 import { useApiTokens } from '@/hooks/useApiTokens'
 import { API_BASE } from '@/lib/api'
+import { isDemo } from '@/lib/firebase'
 
 interface ApiTokensSectionProps {
   tripId: string
@@ -47,7 +48,11 @@ export function ApiTokensSection({ tripId }: ApiTokensSectionProps) {
       setGeneratedToken(raw)
       setTokenName('')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate token')
+      setError(
+        isDemo()
+          ? 'API tokens are not available in the demo account.'
+          : err instanceof Error ? err.message : 'Failed to generate token'
+      )
     } finally {
       setBusy(false)
     }

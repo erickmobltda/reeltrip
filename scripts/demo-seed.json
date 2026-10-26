@@ -1,0 +1,338 @@
+{
+  "trips": {
+    "lisbon-porto": {
+      "name": "Portugal: Lisbon & Porto",
+      "description": "Ten days between Lisbon, Sintra and Porto. Pastéis, tiles and miradouros.",
+      "start_date": "2026-05-08",
+      "end_date": "2026-05-18",
+      "country": "Portugal",
+      "created_at": "2026-03-02T19:10:00.000Z"
+    },
+    "japan-spring": {
+      "name": "Japan in spring",
+      "description": "Cherry blossom season: Tokyo, Kyoto and a day in Nara.",
+      "start_date": "2027-03-27",
+      "end_date": "2027-04-10",
+      "country": "Japan",
+      "created_at": "2026-04-15T22:30:00.000Z"
+    },
+    "mexico-city": {
+      "name": "Weekend in Mexico City",
+      "description": null,
+      "start_date": null,
+      "end_date": null,
+      "country": "Mexico",
+      "created_at": "2026-09-20T14:05:00.000Z"
+    }
+  },
+  "pois": {
+    "lx-pasteis": {
+      "trip_id": "lisbon-porto",
+      "created_at": "2026-03-03T10:00:00.000Z",
+      "source_url": "https://www.instagram.com/reel/demo-pasteis-de-belem/",
+      "platform": "instagram",
+      "title": "Pastéis de Belém",
+      "country": "Portugal",
+      "location_name": "Pastéis de Belém, Belém",
+      "category": "eat",
+      "payload": {
+        "title": "Pastéis de Belém",
+        "tldr": "The original pastel de nata since 1837. Go early or order to go to skip the line.",
+        "location": {
+          "name": "Pastéis de Belém, Belém",
+          "country": "Portugal",
+          "region": "Lisbon"
+        },
+        "full_description": "The bakery that claims the original recipe of the custard tart. The takeaway line moves fast; the rooms in the back have plenty of tables. Sprinkle cinnamon and powdered sugar on top while they are still warm.",
+        "highlights": [
+          "Warm tarts straight from the oven",
+          "Takeaway line moves in minutes",
+          "Jerónimos Monastery is next door"
+        ],
+        "practical_info": {
+          "best_time_to_visit": "Weekdays before 10am",
+          "estimated_cost": "€1.40 per tart",
+          "how_to_get_there": "Tram 15E from Praça da Figueira"
+        },
+        "useful_links": [
+          {
+            "label": "Official site",
+            "url": "https://pasteisdebelem.pt"
+          }
+        ],
+        "source": {
+          "original_url": "https://www.instagram.com/reel/demo-pasteis-de-belem/",
+          "platform": "instagram",
+          "title": "Pastéis de Belém"
+        }
+      }
+    },
+    "lx-miradouro": {
+      "trip_id": "lisbon-porto",
+      "created_at": "2026-03-05T21:15:00.000Z",
+      "source_url": "https://www.youtube.com/shorts/demo-miradouro",
+      "platform": "youtube",
+      "title": "Sunset at Miradouro da Senhora do Monte",
+      "country": "Portugal",
+      "location_name": "Miradouro da Senhora do Monte",
+      "category": "see",
+      "payload": {
+        "title": "Sunset at Miradouro da Senhora do Monte",
+        "tldr": "The highest viewpoint in Lisbon, quieter than Santa Luzia, perfect at sunset.",
+        "location": {
+          "name": "Miradouro da Senhora do Monte",
+          "country": "Portugal",
+          "region": "Lisbon"
+        },
+        "highlights": [
+          "360° view over the castle and the river",
+          "Free",
+          "Bring a drink from the kiosk"
+        ],
+        "practical_info": {
+          "best_time_to_visit": "30 minutes before sunset",
+          "estimated_cost": "Free",
+          "how_to_get_there": "Tram 28 to Graça, then a 5-minute walk uphill"
+        },
+        "source": {
+          "original_url": "https://www.youtube.com/shorts/demo-miradouro",
+          "platform": "youtube",
+          "title": "Sunset at Miradouro da Senhora do Monte"
+        }
+      }
+    },
+    "lx-sintra": {
+      "trip_id": "lisbon-porto",
+      "created_at": "2026-03-10T08:40:00.000Z",
+      "source_url": "https://www.tiktok.com/@demo/video/1000000000000000001",
+      "platform": "tiktok",
+      "title": "Day trip to Sintra: Pena Palace",
+      "country": "Portugal",
+      "location_name": "Pena Palace, Sintra",
+      "category": "do",
+      "payload": {
+        "title": "Day trip to Sintra: Pena Palace",
+        "tldr": "Book the first slot, take the 434 bus up and walk down through the Moorish Castle.",
+        "location": {
+          "name": "Pena Palace, Sintra",
+          "country": "Portugal",
+          "region": "Sintra"
+        },
+        "full_description": "Trains leave Rossio every 20 minutes (40 min ride). The palace gets crowded by 11am, so the first entry slot is worth it. The park around it is as good as the palace itself.",
+        "highlights": [
+          "Colorful palace on top of the hill",
+          "Moorish Castle walls on the way down",
+          "Travesseiros at Piriquita"
+        ],
+        "practical_info": {
+          "best_time_to_visit": "First slot, weekdays",
+          "estimated_cost": "€20 palace + park",
+          "how_to_get_there": "Train from Rossio, then bus 434"
+        },
+        "useful_links": [
+          {
+            "label": "Parques de Sintra tickets",
+            "url": "https://www.parquesdesintra.pt"
+          }
+        ],
+        "source": {
+          "original_url": "https://www.tiktok.com/@demo/video/1000000000000000001",
+          "platform": "tiktok",
+          "title": "Day trip to Sintra: Pena Palace"
+        }
+      }
+    },
+    "lx-cp": {
+      "trip_id": "lisbon-porto",
+      "created_at": "2026-03-12T18:00:00.000Z",
+      "source_url": "https://www.instagram.com/reel/demo-alfa-pendular/",
+      "platform": "instagram",
+      "title": "Cheap train tickets Lisbon → Porto",
+      "country": "Portugal",
+      "location_name": "Santa Apolónia station",
+      "category": "save-money",
+      "payload": {
+        "title": "Cheap train tickets Lisbon → Porto",
+        "tldr": "Buy CP tickets 5+ days ahead for the promo fare; Intercidades is almost as fast as Alfa Pendular.",
+        "location": {
+          "name": "Santa Apolónia station",
+          "country": "Portugal",
+          "region": "Lisbon"
+        },
+        "highlights": [
+          "Promo fares from €10",
+          "Seats with a river view on the left side"
+        ],
+        "practical_info": {
+          "estimated_cost": "€10–€30",
+          "how_to_get_there": "Metro blue line to Santa Apolónia"
+        },
+        "source": {
+          "original_url": "https://www.instagram.com/reel/demo-alfa-pendular/",
+          "platform": "instagram",
+          "title": "Cheap train tickets Lisbon → Porto"
+        }
+      }
+    },
+    "po-francesinha": {
+      "trip_id": "lisbon-porto",
+      "created_at": "2026-03-14T20:30:00.000Z",
+      "source_url": "https://www.youtube.com/shorts/demo-francesinha",
+      "platform": "youtube",
+      "title": "Francesinha at Café Santiago",
+      "country": "Portugal",
+      "location_name": "Café Santiago, Porto",
+      "category": "eat",
+      "payload": {
+        "title": "Francesinha at Café Santiago",
+        "tldr": "Porto's famous sandwich. One is enough for two.",
+        "location": {
+          "name": "Café Santiago, Porto",
+          "country": "Portugal",
+          "region": "Porto"
+        },
+        "highlights": [
+          "The classic francesinha with egg on top",
+          "Queue forms at 12:30"
+        ],
+        "practical_info": {
+          "best_time_to_visit": "Lunch before 12:30",
+          "estimated_cost": "€12–€15"
+        },
+        "source": {
+          "original_url": "https://www.youtube.com/shorts/demo-francesinha",
+          "platform": "youtube",
+          "title": "Francesinha at Café Santiago"
+        }
+      }
+    },
+    "jp-fushimi": {
+      "trip_id": "japan-spring",
+      "created_at": "2026-04-16T09:00:00.000Z",
+      "source_url": "https://www.instagram.com/reel/demo-fushimi-inari/",
+      "platform": "instagram",
+      "title": "Fushimi Inari at sunrise",
+      "country": "Japan",
+      "location_name": "Fushimi Inari Taisha, Kyoto",
+      "category": "see",
+      "payload": {
+        "title": "Fushimi Inari at sunrise",
+        "tldr": "Thousands of torii gates. Arrive before 7am and climb past the first viewpoint to lose the crowds.",
+        "location": {
+          "name": "Fushimi Inari Taisha, Kyoto",
+          "country": "Japan",
+          "region": "Kyoto"
+        },
+        "highlights": [
+          "Open 24 hours, free",
+          "Crowds thin out after Yotsutsuji intersection",
+          "Kitsune-shaped ema"
+        ],
+        "practical_info": {
+          "best_time_to_visit": "Sunrise",
+          "estimated_cost": "Free",
+          "how_to_get_there": "JR Nara line to Inari station"
+        },
+        "source": {
+          "original_url": "https://www.instagram.com/reel/demo-fushimi-inari/",
+          "platform": "instagram",
+          "title": "Fushimi Inari at sunrise"
+        }
+      }
+    },
+    "jp-ryokan": {
+      "trip_id": "japan-spring",
+      "created_at": "2026-04-18T23:10:00.000Z",
+      "source_url": "https://www.tiktok.com/@demo/video/1000000000000000002",
+      "platform": "tiktok",
+      "title": "Ryokan with private onsen in Hakone",
+      "country": "Japan",
+      "location_name": "Hakone",
+      "category": "sleep",
+      "payload": {
+        "title": "Ryokan with private onsen in Hakone",
+        "tldr": "One night in a ryokan with kaiseki dinner. Book months ahead for sakura season.",
+        "location": {
+          "name": "Hakone",
+          "country": "Japan",
+          "region": "Kanagawa"
+        },
+        "highlights": [
+          "Private open-air bath",
+          "Kaiseki dinner served in the room",
+          "View of Mount Fuji on clear days"
+        ],
+        "practical_info": {
+          "estimated_cost": "¥40,000–¥70,000 per night for two",
+          "how_to_get_there": "Romancecar from Shinjuku",
+          "accommodation_tips": "Rooms with a private onsen sell out first"
+        },
+        "source": {
+          "original_url": "https://www.tiktok.com/@demo/video/1000000000000000002",
+          "platform": "tiktok",
+          "title": "Ryokan with private onsen in Hakone"
+        }
+      }
+    },
+    "jp-pass": {
+      "trip_id": "japan-spring",
+      "created_at": "2026-04-20T12:00:00.000Z",
+      "source_url": "https://www.youtube.com/shorts/demo-suica",
+      "platform": "youtube",
+      "title": "Suica on your phone",
+      "country": "Japan",
+      "location_name": "Tokyo",
+      "category": "transport",
+      "payload": {
+        "title": "Suica on your phone",
+        "tldr": "Add a Suica card to Apple Wallet and top it up with a card; no need to buy a physical one.",
+        "location": {
+          "name": "Tokyo",
+          "country": "Japan",
+          "region": "Tokyo"
+        },
+        "highlights": [
+          "Works on trains, buses and konbini",
+          "Express mode: no Face ID at the gate"
+        ],
+        "source": {
+          "original_url": "https://www.youtube.com/shorts/demo-suica",
+          "platform": "youtube",
+          "title": "Suica on your phone"
+        }
+      }
+    },
+    "mx-tacos": {
+      "trip_id": "mexico-city",
+      "created_at": "2026-09-21T01:00:00.000Z",
+      "source_url": "https://www.instagram.com/reel/demo-tacos-al-pastor/",
+      "platform": "instagram",
+      "title": "Tacos al pastor at El Vilsito",
+      "country": "Mexico",
+      "location_name": "El Vilsito, Narvarte",
+      "category": "eat",
+      "payload": {
+        "title": "Tacos al pastor at El Vilsito",
+        "tldr": "Mechanic shop by day, taquería by night. Order the al pastor con todo.",
+        "location": {
+          "name": "El Vilsito, Narvarte",
+          "country": "Mexico",
+          "region": "Mexico City"
+        },
+        "highlights": [
+          "Open until 3am on weekends",
+          "Pineapple sliced straight from the trompo"
+        ],
+        "practical_info": {
+          "best_time_to_visit": "After 9pm",
+          "estimated_cost": "MX$25 per taco"
+        },
+        "source": {
+          "original_url": "https://www.instagram.com/reel/demo-tacos-al-pastor/",
+          "platform": "instagram",
+          "title": "Tacos al pastor at El Vilsito"
+        }
+      }
+    }
+  }
+}
