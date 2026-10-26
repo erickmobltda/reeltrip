@@ -8,6 +8,18 @@ React 18 + Vite + TypeScript + Tailwind + Radix UI + Firebase Auth/Firestore (pr
 
 Sign-up is disabled: accounts are created in the Firebase console (Authentication → Users).
 
+## Live demo
+
+Try it without signing up: **https://reeltrip.erickmob.dev** → **Try the demo** on the login page (`demo@ledgenator.app` / `demo1234`, the public sandbox account shared by the erickmob apps).
+
+It comes with three sample trips and their POIs. It's a **shared sandbox**: anyone can sign in and change it. Processing reels (AI) and API tokens are off for the demo account; erickmob-api and the Firestore rules refuse them. To restore the sample data:
+
+```bash
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/firebase-sa.json npm run reset-demo
+```
+
+It replaces the demo account's `trips` and `pois` with `scripts/demo-seed.json` (and restores its password and `demo` claim).
+
 ## Local development
 
 ```bash
